@@ -1,0 +1,4 @@
+name: Grave
+version: '1.0-SNAPSHOT'
+main: studio.resonos.grave.Grave
+api-version: '1.20'
