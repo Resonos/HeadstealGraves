@@ -1,9 +1,12 @@
 package studio.resonos.grave.core;
 
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import studio.resonos.grave.Grave;
+import studio.resonos.grave.core.utils.LocationUtil;
 
 import java.util.List;
 
@@ -20,29 +23,46 @@ public class DataManager {
     public static void createProfile(Player p ) {
         FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
         configuration.createSection("players." + p.getName());
+    }
+
+    public static void setDead(Player p) {
+        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
-        configuration.set(path + ".victims", def);
+
+        p.setGameMode(GameMode.SPECTATOR);
+        configuration.set(path + ".dead", Boolean.TRUE);
+    }
+
+    public static Boolean isDead(Player p) {
+        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        String path = "players." + p.getName();
+
+        return configuration.getBoolean(path + ".dead");
     }
 
 
-    public static void addVictim(Player p, OfflinePlayer v ) {
+    public static void revive(OfflinePlayer p) {
         FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
-        // add name of victim
-        configuration.getStringList(path + ".victims").add(configuration.getStringList(path + ".victims").size(), v.getName());//.add(v.getName());
+
+        Player player = (Player) p;
+        ((Player) p).setGameMode(GameMode.SURVIVAL);
+        configuration.set(path + ".dead", Boolean.FALSE);
     }
 
-    public static List<String> getVictims(Player player) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
-        String path = "players." + player.getName();
-        return configuration.getStringList(path + ".victims");
-    }
-
-    public static void removeVictim(Player p, OfflinePlayer v) {
+    public static void addKiller(OfflinePlayer p, OfflinePlayer k ) {
         FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
-        // remove name of victim
-        configuration.getStringList(path + ".victims").remove(v.getName());
+        // add name of killer
+        configuration.set(path + ".killer", k.getName());
+    }
+
+
+    public static void removeKiller(OfflinePlayer p, OfflinePlayer k) {
+        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        String path = "players." + p.getName();
+        // remove name of killer
+        configuration.set(path + ".killer", null);
     }
 
 }

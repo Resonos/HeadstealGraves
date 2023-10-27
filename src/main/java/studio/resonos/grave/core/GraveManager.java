@@ -1,20 +1,27 @@
 package studio.resonos.grave.core;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.type.Wall;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
+import studio.resonos.grave.Grave;
+import studio.resonos.grave.core.utils.LocationUtil;
 
 public class GraveManager {
 
     public static void createGrave(Player p, int x , int y , int z) {
+        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        String path = "players." + p.getName();
+        configuration.set(path + ".grave", LocationUtil.serialize(new Location(p.getWorld(), x, y, z)));
         int offsetx = x - 1;
         int offsety = y - 1;
         double offsetya = y - 1.5D;

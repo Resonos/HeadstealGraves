@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.plugin.java.JavaPlugin;
 import studio.resonos.grave.core.utils.BasicConfigurationFile;
+import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.listeners.PlayerListener;
 
 import java.util.ArrayList;
@@ -16,12 +17,12 @@ public final class Grave extends JavaPlugin {
     public void onEnable() {
         loadConfig();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
-        Bukkit.getConsoleSender().sendMessage(Color.RED + " ");
-        Bukkit.getConsoleSender().sendMessage(Color.RED + "Graves Plugin");
-        Bukkit.getConsoleSender().sendMessage(Color.RED + " ");
-        Bukkit.getConsoleSender().sendMessage(Color.RED + "Version: 1.0");
-        Bukkit.getConsoleSender().sendMessage(Color.RED + "Developed by Resonos Studios.");
-        Bukkit.getConsoleSender().sendMessage(Color.RED + " ");
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + " "));
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + "Graves Plugin"));
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + " "));
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + "Version: 1.0"));
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + "Developed by Resonos Studios."));
+        Bukkit.getConsoleSender().sendMessage(CC.translate(Color.RED + " "));
     }
 
 

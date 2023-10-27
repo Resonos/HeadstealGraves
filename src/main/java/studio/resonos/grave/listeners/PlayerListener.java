@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,6 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -24,6 +26,7 @@ import studio.resonos.grave.core.GraveManager;
 import studio.resonos.grave.core.utils.ItemUtil;
 import studio.resonos.grave.core.utils.SkullCreator;
 
+import java.io.File;
 import java.util.Objects;
 
 public class PlayerListener implements Listener {
@@ -44,11 +47,31 @@ public class PlayerListener implements Listener {
         if (e.getEntity().getPlayer().getKiller() instanceof Player) {
             if (RankManager.isFallenAngel(e.getEntity().getPlayer())) {
                 RankManager.removeFallenAngel(e.getEntity().getPlayer());
-                for (String string: DataManager.getVictims(e.getEntity().getPlayer())) {
-                    OfflinePlayer victim = Bukkit.getOfflinePlayer(string);
-                    DataManager.removeVictim(e.getEntity().getPlayer(), victim);
-                    Bukkit.broadcastMessage("Victim revived: " + victim.getName());
+
+                //Bukkit.getConsoleSender().sendMessage("starting victim search");
+                FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+                for (String string: configuration.getConfigurationSection("players").getKeys(false)) {
+                   // Bukkit.getConsoleSender().sendMessage(string + " is the key!");
+                    String path = "players." + string + ".killer";
+                    //Bukkit.getConsoleSender().sendMessage(path);
+
+                   // Bukkit.getConsoleSender().sendMessage("1");
+                    if (configuration.getString(path, ".killer").equals(e.getEntity().getPlayer().getName())) {
+                        //Bukkit.getConsoleSender().sendMessage("2");
+                        DataManager.removeKiller(Bukkit.getOfflinePlayer(string), e.getEntity().getPlayer());
+                       // Bukkit.broadcastMessage(string + " has been revived");
+                        DataManager.revive(Bukkit.getOfflinePlayer(string));
+                    }
+
                 }
+               /* for (String string: DataManager.getVictims(e.getEntity().getPlayer())) {
+                    Bukkit.getConsoleSender().sendMessage("started victim search");
+                    OfflinePlayer victim = Bukkit.getOfflinePlayer(string);
+                    Bukkit.getConsoleSender().sendMessage("victim found");
+                    DataManager.removeKiller(e.getEntity().getPlayer(), victim);
+                    Bukkit.getConsoleSender().sendMessage("removed victim");
+                    Bukkit.broadcastMessage("Victim revived: " + victim.getName());
+                }*/
             }
         }
         // remove 1 heart
@@ -65,6 +88,7 @@ public class PlayerListener implements Listener {
                     e.getEntity().getPlayer().getLocation().getBlockX(),
                     e.getEntity().getPlayer().getLocation().getBlockY(),
                     e.getEntity().getPlayer().getLocation().getBlockZ());
+            DataManager.setDead(e.getEntity().getPlayer());
         }
         DeathManager.addDeaths(Objects.requireNonNull(e.getEntity().getPlayer()));
         e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have died " + DeathManager.getDeaths(e.getEntity().getPlayer()) ));
@@ -85,10 +109,23 @@ public class PlayerListener implements Listener {
                     //PersistentDataContainer data = event.getPlayer().getPersistentDataContainer();
                     //data.set(killerkey, PersistentDataType.BOOLEAN, Boolean.TRUE);
                     //data.set(new NamespacedKey(Grave.getPlugin(Grave.class), owner.getName()), PersistentDataType.STRING, "killer." + owner.getName());
-                    DataManager.addVictim(event.getPlayer(), Bukkit.getOfflinePlayer(owner));
+                    DataManager.addKiller(Bukkit.getOfflinePlayer(owner), event.getPlayer());
                     RankManager.addFallenAngel(event.getPlayer());
                 }
             //}
+        }
+    }
+
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if(DataManager.isDead(e.getPlayer())) {
+            // tp back but allow rotating head
+            if(e.getTo().getBlockX() > e.getFrom().getBlockX() || e.getTo().getBlockX() < e.getFrom().getBlockX()
+                    || e.getTo().getBlockZ() > e.getFrom().getBlockZ() || e.getTo().getBlockZ() < e.getFrom().getBlockZ()
+                    || e.getTo().getBlockY() > e.getFrom().getBlockY() || e.getTo().getBlockY() < e.getFrom().getBlockY()) {
+                e.getPlayer().teleport(e.getFrom());
+            }
         }
     }
 
