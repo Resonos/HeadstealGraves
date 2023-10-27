@@ -1,12 +1,10 @@
 package studio.resonos.grave.core;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import studio.resonos.grave.Grave;
-import studio.resonos.grave.core.utils.LocationUtil;
 
 import java.util.List;
 

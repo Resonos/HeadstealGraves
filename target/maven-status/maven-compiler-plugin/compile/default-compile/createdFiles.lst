@@ -5,6 +5,7 @@ studio\resonos\grave\core\DataManager.class
 studio\resonos\grave\core\DeathManager.class
 studio\resonos\grave\core\GraveManager.class
 studio\resonos\grave\listeners\PlayerListener.class
+studio\resonos\grave\core\RecipieManager.class
 studio\resonos\grave\core\utils\CC.class
 studio\resonos\grave\core\utils\SkullCreator.class
 studio\resonos\grave\Grave.class
