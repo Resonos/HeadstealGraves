@@ -1,10 +1,10 @@
-package studio.resonos.grave.core.managers;
+package studio.resonos.headsteal.core.managers;
 
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import studio.resonos.grave.ResonosHeadsteal;
+import studio.resonos.headsteal.ResonosHeadsteal;
 
 public class DataManager {
 
@@ -25,6 +25,9 @@ public class DataManager {
         FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
+        DeathManager.setLives(p, 0);
+        RankManager.clearPrefixes(p.getUniqueId());
+        RankManager.setDead(p.getUniqueId());
         p.setGameMode(GameMode.SPECTATOR);
         configuration.set(path + ".dead", Boolean.TRUE);
     }
@@ -41,7 +44,10 @@ public class DataManager {
         FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
-        Player player = (Player) p;
+        RankManager.clearPrefixes(p.getUniqueId());
+        DeathManager.setLives(p.getPlayer(), 3);
+        RankManager.setfirstlife(p.getUniqueId());
+
         ((Player) p).setGameMode(GameMode.SURVIVAL);
         configuration.set(path + ".dead", Boolean.FALSE);
     }
@@ -60,5 +66,4 @@ public class DataManager {
         // remove name of killer
         configuration.set(path + ".killer", null);
     }
-
 }

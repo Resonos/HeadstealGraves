@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.utils;
+package studio.resonos.headsteal.core.utils;
 
 // Copyright (c) 2017 deanveloper (see LICENSE.md for more info)
 

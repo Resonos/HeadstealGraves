@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.utils;
+package studio.resonos.headsteal.core.utils;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

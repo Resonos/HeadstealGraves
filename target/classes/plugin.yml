@@ -1,6 +1,6 @@
 name: ResonosHeadsteal
 version: '1.0-SNAPSHOT'
-main: studio.resonos.grave.Grave
+main: studio.resonos.headsteal.ResonosHeadsteal
 author: oShifuu
 website: https://discord.gg/wdKJW5gBFC
 api-version: '1.20'

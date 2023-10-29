@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.utils;
+package studio.resonos.headsteal.core.utils;
 
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;

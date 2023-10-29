@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.listeners;
+package studio.resonos.headsteal.core.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,11 +18,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import studio.resonos.grave.ResonosHeadsteal;
-import studio.resonos.grave.core.managers.*;
-import studio.resonos.grave.core.utils.CC;
-import studio.resonos.grave.core.utils.ItemUtil;
-import studio.resonos.grave.core.utils.SkullCreator;
+import studio.resonos.headsteal.ResonosHeadsteal;
+import studio.resonos.headsteal.core.managers.*;
+import studio.resonos.headsteal.core.utils.CC;
+import studio.resonos.headsteal.core.utils.ItemUtil;
+import studio.resonos.headsteal.core.utils.SkullCreator;
 
 import java.util.Objects;
 
@@ -34,10 +34,24 @@ public class PlayerListener implements Listener {
             Bukkit.getConsoleSender().sendMessage("No Profile found for " + e.getPlayer().getName() + " ...creating now.");
             DataManager.createProfile(e.getPlayer());
         }
+        if ((DeathManager.getLives(e.getPlayer()) == 3)) {
+            RankManager.clearPrefixes(e.getPlayer().getUniqueId());
+            RankManager.setfirstlife(e.getPlayer().getUniqueId());
+        }
+        if ((DeathManager.getLives(e.getPlayer()) == 2)) {
+            RankManager.clearPrefixes(e.getPlayer().getUniqueId());
+            RankManager.setsecondlife(e.getPlayer().getUniqueId());
+        }
+        if ((DeathManager.getLives(e.getPlayer()) == 3)) {
+            RankManager.clearPrefixes(e.getPlayer().getUniqueId());
+            RankManager.setlastlife(e.getPlayer().getUniqueId());
+        }
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
+        DeathManager.removeLife(Objects.requireNonNull(e.getEntity().getPlayer()));
+        e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have " + DeathManager.getLives(e.getEntity().getPlayer())+ " &clives left"));
         if (e.getEntity().getPlayer().getKiller() instanceof Player) {
             if (RankManager.isFallenAngel(e.getEntity().getPlayer())) {
                 RankManager.removeFallenAngel(e.getEntity().getPlayer());
@@ -53,20 +67,26 @@ public class PlayerListener implements Listener {
             }
         }
         e.getEntity().getPlayer().setMaxHealth(e.getEntity().getPlayer().getMaxHealth() - 2);
-        if (DeathManager.getDeaths(e.getEntity().getPlayer()) >= 3) {
+        if (DeathManager.getLives(e.getEntity().getPlayer()) <= 0) {
+            DataManager.setDead(e.getEntity().getPlayer());
             e.getEntity().getPlayer().setMaxHealth(20);
-            DeathManager.setDeaths(e.getEntity().getPlayer(), 0);
             ItemStack skull = SkullCreator.itemFromUuid(e.getEntity().getUniqueId());
             ItemUtil.drop(e.getEntity().getLocation(), skull);
-            e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have died 3 times. You can only respawn once a player has revived you!" + DeathManager.getDeaths(e.getEntity().getPlayer()) ));
+            e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have died 3 times. You can only respawn once a player has revived you!"));
             GraveManager.createGrave(e.getEntity().getPlayer(),
                     e.getEntity().getPlayer().getLocation().getBlockX(),
                     e.getEntity().getPlayer().getLocation().getBlockY(),
                     e.getEntity().getPlayer().getLocation().getBlockZ());
-            DataManager.setDead(e.getEntity().getPlayer());
+        }else if(DeathManager.getLives(e.getEntity().getPlayer()) == 3) {
+            RankManager.clearPrefixes(e.getEntity().getPlayer().getUniqueId());
+            RankManager.setfirstlife(e.getEntity().getPlayer().getUniqueId()); }
+        else if(DeathManager.getLives(e.getEntity().getPlayer()) == 2) {
+            RankManager.clearPrefixes(e.getEntity().getPlayer().getUniqueId());
+            RankManager.setsecondlife(e.getEntity().getPlayer().getUniqueId());
+        }else if(DeathManager.getLives(e.getEntity().getPlayer()) == 1) {
+            RankManager.clearPrefixes(e.getEntity().getPlayer().getUniqueId());
+            RankManager.setlastlife(e.getEntity().getPlayer().getUniqueId());
         }
-        DeathManager.addDeaths(Objects.requireNonNull(e.getEntity().getPlayer()));
-        e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have died " + DeathManager.getDeaths(e.getEntity().getPlayer()) ));
     }
 
     @EventHandler
@@ -90,18 +110,11 @@ public class PlayerListener implements Listener {
     public void onPlayerMove(PlayerMoveEvent e) {
         if(DataManager.isDead(e.getPlayer())) {
             // tp back but allow rotating head
-            if(e.getTo().getBlockX() > e.getFrom().getBlockX() || e.getTo().getBlockX() < e.getFrom().getBlockX()
-                    || e.getTo().getBlockZ() > e.getFrom().getBlockZ() || e.getTo().getBlockZ() < e.getFrom().getBlockZ()
-                    || e.getTo().getBlockY() > e.getFrom().getBlockY() || e.getTo().getBlockY() < e.getFrom().getBlockY()) {
-                e.getPlayer().teleport(e.getFrom());
+            if(e.getTo().getBlockX() > e.getPlayer().getLastDeathLocation().getBlockX() || e.getTo().getBlockX() < e.getPlayer().getLastDeathLocation().getBlockX()
+                    || e.getTo().getBlockZ() > e.getPlayer().getLastDeathLocation().getBlockZ() || e.getTo().getBlockZ() < e.getPlayer().getLastDeathLocation().getBlockZ()
+                    || e.getTo().getBlockY() > e.getPlayer().getLastDeathLocation().getBlockY() || e.getTo().getBlockY() < e.getPlayer().getLastDeathLocation().getBlockY()) {
+                e.getPlayer().teleport(e.getPlayer().getLastDeathLocation());
             }
-        }
-    }
-
-    @EventHandler
-    public void onPlace(BlockPlaceEvent e) {
-        if (e.getBlock() == RecipieManager.createBeacon().getResult()) {
-            e.setCancelled(true);
         }
     }
 

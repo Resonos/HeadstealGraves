@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.managers;
+package studio.resonos.headsteal.core.managers;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,15 +13,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
-import studio.resonos.grave.ResonosHeadsteal;
-import studio.resonos.grave.core.utils.LocationUtil;
+import studio.resonos.headsteal.ResonosHeadsteal;
+import studio.resonos.headsteal.core.utils.LocationUtil;
 
 public class GraveManager {
 
     public static void createGrave(Player p, int x , int y , int z) {
         FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
-        configuration.set(path + ".grave", LocationUtil.serialize(new Location(p.getWorld(), x, y, z)));
+        configuration.set(path + ".headsteal", LocationUtil.serialize(new Location(p.getWorld(), x, y, z)));
         int offsetx = x - 1;
         int offsety = y - 1;
         double offsetya = y - 1.5D;

@@ -1,4 +1,4 @@
-package studio.resonos.grave.core.managers;
+package studio.resonos.headsteal.core.managers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -8,7 +8,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
-import studio.resonos.grave.ResonosHeadsteal;
+import studio.resonos.headsteal.ResonosHeadsteal;
 
 public class RecipieManager {
 

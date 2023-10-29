@@ -1,11 +1,11 @@
-package studio.resonos.grave.core.utils;
+package studio.resonos.headsteal.core.utils;
 
 import com.google.common.io.Files;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import studio.resonos.grave.ResonosHeadsteal;
+import studio.resonos.headsteal.ResonosHeadsteal;
 
 import java.io.File;
 import java.io.IOException;
