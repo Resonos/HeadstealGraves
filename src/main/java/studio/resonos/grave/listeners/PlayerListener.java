@@ -154,6 +154,7 @@ public class PlayerListener implements Listener {
                     for (String string: configuration.getConfigurationSection("players").getKeys(false)) {
                        Bukkit.broadcastMessage(string);
                        if (e.getRightClicked().getCustomName().equals(string)){
+                           e.getPlayer().getInventory().getItemInMainHand().setType(Material.AIR);
                            DataManager.revive(Bukkit.getOfflinePlayer(string));
                            Bukkit.broadcastMessage(CC.translate("&a " + string + " has been revived by " + e.getPlayer().getName() + " using a Revive Beacon!"));
                        }
