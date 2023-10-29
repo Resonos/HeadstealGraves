@@ -25,7 +25,7 @@ public class RankManager {
         LuckPerms lp = provider.getProvider();
 
         if (!(lp.getGroupManager().getLoadedGroups().contains("fallen"))) {
-            Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
+            //Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
             lp.getGroupManager().createAndLoadGroup("fallen");
         }
 
@@ -40,7 +40,7 @@ public class RankManager {
         LuckPerms lp = provider.getProvider();
 
         if (!(lp.getGroupManager().getLoadedGroups().contains("fallen"))) {
-            Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
+            //Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
             lp.getGroupManager().createAndLoadGroup("fallen");
         }
 

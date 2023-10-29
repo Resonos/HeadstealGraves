@@ -11,9 +11,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.util.EulerAngle;
 import studio.resonos.grave.Grave;
+import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.core.utils.LocationUtil;
 
 public class GraveManager {
@@ -38,7 +42,11 @@ public class GraveManager {
         ArmorStand stand = (ArmorStand) p.getWorld().spawnEntity(new Location(p.getWorld(), (x + 0.5D), (offsetya - 0.2D), (z + 0.5D)) , EntityType.ARMOR_STAND);
         stand.setInvulnerable(true);
         stand.setVisible(false);
+        stand.setCustomName(p.getName());
+        //stand.setMetadata(p.getName(), new FixedMetadataValue(Grave.getPlugin(Grave.class), p.getName()));
+        stand.setCustomNameVisible(true);
         stand.setHelmet(new ItemStack(Material.SKELETON_SKULL));
+        stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
         stand.setRotation(33, 0);
         stand.setHeadPose(new EulerAngle(Math.toRadians(291),Math.toRadians(306),Math.toRadians(0)));
         stand.setGravity(false);

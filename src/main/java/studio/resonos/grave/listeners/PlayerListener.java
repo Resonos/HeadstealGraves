@@ -5,24 +5,27 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import studio.resonos.grave.core.DataManager;
-import studio.resonos.grave.core.DeathManager;
-import studio.resonos.grave.core.RankManager;
+import studio.resonos.grave.core.*;
 import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.Grave;
-import studio.resonos.grave.core.GraveManager;
 import studio.resonos.grave.core.utils.ItemUtil;
 import studio.resonos.grave.core.utils.SkullCreator;
 
@@ -126,6 +129,37 @@ public class PlayerListener implements Listener {
                     || e.getTo().getBlockY() > e.getFrom().getBlockY() || e.getTo().getBlockY() < e.getFrom().getBlockY()) {
                 e.getPlayer().teleport(e.getFrom());
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent e) {
+        if (e.getBlock() == RecipieManager.createBeacon().getResult()) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onGraveClick(PlayerInteractAtEntityEvent e) {
+        if (e.getRightClicked() instanceof ArmorStand) {
+            Bukkit.broadcastMessage("1");
+            Entity stand = e.getRightClicked();
+            FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+           // if (stand.getCustomName().contains("grave")) {
+                Bukkit.broadcastMessage("2");
+                //im writing this on phone so i cant test & idfk which one will work
+                if ( /*(e.getPlayer().getInventory().getItemInMainHand().isSimilar(RecipieManager.createBeacon().getResult())) ||*/
+                        (RecipieManager.createBeacon().getResult().isSimilar(e.getPlayer().getInventory().getItemInMainHand()))){
+                    Bukkit.broadcastMessage("3");
+                    for (String string: configuration.getConfigurationSection("players").getKeys(false)) {
+                       Bukkit.broadcastMessage(string);
+                       if (e.getRightClicked().getCustomName().equals(string)){
+                           DataManager.revive(Bukkit.getOfflinePlayer(string));
+                           Bukkit.broadcastMessage(CC.translate("&a " + string + " has been revived by " + e.getPlayer() + " using a Revive Beacon!"));
+                       }
+                    }
+                }
+           // }
         }
     }
 
