@@ -1,4 +1,4 @@
-package studio.resonos.grave.listeners;
+package studio.resonos.grave.core.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import studio.resonos.grave.ResonosHeadsteal;
-import studio.resonos.grave.core.*;
+import studio.resonos.grave.core.managers.*;
 import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.core.utils.ItemUtil;
 import studio.resonos.grave.core.utils.SkullCreator;

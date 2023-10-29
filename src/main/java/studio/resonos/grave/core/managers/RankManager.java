@@ -1,4 +1,4 @@
-package studio.resonos.grave.core;
+package studio.resonos.grave.core.managers;
 
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.node.types.InheritanceNode;

@@ -1,4 +1,4 @@
-package studio.resonos.grave.core;
+package studio.resonos.grave.core.managers;
 
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;

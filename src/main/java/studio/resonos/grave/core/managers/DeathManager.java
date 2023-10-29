@@ -1,4 +1,4 @@
-package studio.resonos.grave.core;
+package studio.resonos.grave.core.managers;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

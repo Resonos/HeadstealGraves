@@ -4,10 +4,10 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.plugin.java.JavaPlugin;
-import studio.resonos.grave.core.RecipieManager;
+import studio.resonos.grave.core.managers.RecipieManager;
 import studio.resonos.grave.core.utils.BasicConfigurationFile;
 import studio.resonos.grave.core.utils.CC;
-import studio.resonos.grave.listeners.PlayerListener;
+import studio.resonos.grave.core.listeners.PlayerListener;
 
 public final class ResonosHeadsteal extends JavaPlugin {
     @Getter
