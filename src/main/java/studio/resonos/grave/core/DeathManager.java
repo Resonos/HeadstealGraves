@@ -2,7 +2,6 @@ package studio.resonos.grave.core;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import studio.resonos.grave.Grave;

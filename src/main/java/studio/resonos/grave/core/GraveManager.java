@@ -1,6 +1,5 @@
 package studio.resonos.grave.core;
 
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,11 +12,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.util.EulerAngle;
 import studio.resonos.grave.Grave;
-import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.core.utils.LocationUtil;
 
 public class GraveManager {

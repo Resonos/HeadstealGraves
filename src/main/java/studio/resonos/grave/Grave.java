@@ -9,8 +9,6 @@ import studio.resonos.grave.core.utils.BasicConfigurationFile;
 import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.listeners.PlayerListener;
 
-import java.util.ArrayList;
-
 public final class Grave extends JavaPlugin {
     @Getter
     private BasicConfigurationFile playerconfig;

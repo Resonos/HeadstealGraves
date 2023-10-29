@@ -1,21 +1,11 @@
 package studio.resonos.grave.core;
 
 import net.luckperms.api.LuckPerms;
-import net.luckperms.api.LuckPermsProvider;
-import net.luckperms.api.model.group.Group;
-import net.luckperms.api.model.user.User;
-import net.luckperms.api.model.user.UserManager;
-import net.luckperms.api.node.matcher.NodeMatcher;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import studio.resonos.grave.Grave;
-import studio.resonos.grave.core.utils.CC;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class RankManager {
 
