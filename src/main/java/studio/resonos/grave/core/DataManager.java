@@ -4,27 +4,27 @@ import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import studio.resonos.grave.Grave;
+import studio.resonos.grave.ResonosHeadsteal;
 
 import java.util.List;
 
 public class DataManager {
 
-    private static List<String> def; // default value
+    // default value
 
     public static boolean hasProfile(Player p) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
         return configuration.get(path) != null;
     }
 
     public static void createProfile(Player p ) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         configuration.createSection("players." + p.getName());
     }
 
     public static void setDead(Player p) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
         p.setGameMode(GameMode.SPECTATOR);
@@ -32,7 +32,7 @@ public class DataManager {
     }
 
     public static Boolean isDead(Player p) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
         return configuration.getBoolean(path + ".dead");
@@ -40,7 +40,7 @@ public class DataManager {
 
 
     public static void revive(OfflinePlayer p) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
         Player player = (Player) p;
@@ -49,7 +49,7 @@ public class DataManager {
     }
 
     public static void addKiller(OfflinePlayer p, OfflinePlayer k ) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
         // add name of killer
         configuration.set(path + ".killer", k.getName());
@@ -57,7 +57,7 @@ public class DataManager {
 
 
     public static void removeKiller(OfflinePlayer p, OfflinePlayer k) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
         // remove name of killer
         configuration.set(path + ".killer", null);

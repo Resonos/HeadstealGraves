@@ -9,7 +9,7 @@ import studio.resonos.grave.core.utils.BasicConfigurationFile;
 import studio.resonos.grave.core.utils.CC;
 import studio.resonos.grave.listeners.PlayerListener;
 
-public final class Grave extends JavaPlugin {
+public final class ResonosHeadsteal extends JavaPlugin {
     @Getter
     private BasicConfigurationFile playerconfig;
     @Override

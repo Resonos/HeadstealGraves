@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
-import studio.resonos.grave.Grave;
+import studio.resonos.grave.ResonosHeadsteal;
 import studio.resonos.grave.core.utils.LocationUtil;
 
 public class GraveManager {
 
     public static void createGrave(Player p, int x , int y , int z) {
-        FileConfiguration configuration = Grave.getPlugin(Grave.class).getPlayerconfig().getConfiguration();
+        FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
         configuration.set(path + ".grave", LocationUtil.serialize(new Location(p.getWorld(), x, y, z)));
         int offsetx = x - 1;
@@ -39,7 +39,6 @@ public class GraveManager {
         stand.setInvulnerable(true);
         stand.setVisible(false);
         stand.setCustomName(p.getName());
-        //stand.setMetadata(p.getName(), new FixedMetadataValue(Grave.getPlugin(Grave.class), p.getName()));
         stand.setCustomNameVisible(true);
         stand.setHelmet(new ItemStack(Material.SKELETON_SKULL));
         stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);

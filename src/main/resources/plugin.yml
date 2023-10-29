@@ -1,4 +1,6 @@
-name: Grave
+name: ResonosHeadsteal
 version: '${project.version}'
 main: studio.resonos.grave.Grave
+author: oShifuu
+website: https://discord.gg/wdKJW5gBFC
 api-version: '1.20'

@@ -5,7 +5,7 @@ import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import studio.resonos.grave.Grave;
+import studio.resonos.grave.ResonosHeadsteal;
 
 public class RankManager {
 
@@ -15,13 +15,12 @@ public class RankManager {
         LuckPerms lp = provider.getProvider();
 
         if (!(lp.getGroupManager().getLoadedGroups().contains("fallen"))) {
-            //Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
             lp.getGroupManager().createAndLoadGroup("fallen");
         }
 
         lp.getUserManager().getUser(pl.getPlayer().getUniqueId()).data().add(InheritanceNode.builder("fallen").value(true).build());
         lp.getUserManager().saveUser(lp.getUserManager().getUser(pl.getPlayer().getUniqueId()));
-        Grave.getPlugin(Grave.class).getPlayerconfig().save();
+        ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().save();
     }
 
     public static void removeFallenAngel(Player pl) {
@@ -30,13 +29,12 @@ public class RankManager {
         LuckPerms lp = provider.getProvider();
 
         if (!(lp.getGroupManager().getLoadedGroups().contains("fallen"))) {
-            //Bukkit.getConsoleSender().sendMessage((CC.translate("&aNO LUCKPERMS GROUP 'FALLEN' FOUND, CREATING NOW")));
             lp.getGroupManager().createAndLoadGroup("fallen");
         }
 
         lp.getUserManager().getUser(pl.getPlayer().getUniqueId()).data().remove(InheritanceNode.builder("fallen").value(true).build());
         lp.getUserManager().saveUser(lp.getUserManager().getUser(pl.getPlayer().getUniqueId()));
-        Grave.getPlugin(Grave.class).getPlayerconfig().save();
+        ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().save();
     }
 
     public static boolean isFallenAngel(Player player) {

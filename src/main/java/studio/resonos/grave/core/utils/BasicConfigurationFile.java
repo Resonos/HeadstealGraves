@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import studio.resonos.grave.Grave;
+import studio.resonos.grave.ResonosHeadsteal;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,7 +92,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     }
 
     public void reload() {
-        File file = new File(Grave.getPlugin(Grave.class).getDataFolder(), getName() + ".yml");
+        File file = new File(ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getDataFolder(), getName() + ".yml");
         try {
             getConfiguration().load(file);
             getConfiguration().save(file);
@@ -102,7 +102,7 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
     }
 
     public void save() {
-        File folder = Grave.getPlugin(Grave.class).getDataFolder();
+        File folder = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getDataFolder();
         try {
             getConfiguration().save(new File(folder, getName() + ".yml"));
         } catch (Exception ignored) {
