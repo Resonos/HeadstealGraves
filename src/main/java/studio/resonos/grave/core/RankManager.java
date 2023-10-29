@@ -49,20 +49,6 @@ public class RankManager {
         Grave.getPlugin(Grave.class).getPlayerconfig().save();
     }
 
-    private static List<User> getUsersInGroup(String groupName) {
-        LuckPerms api = LuckPermsProvider.get();
-        Group group = api.getGroupManager().getGroup(groupName);
-        if (group == null) throw new IllegalArgumentException("Group " + groupName + " not found");
-        UserManager userManager = api.getUserManager();
-        List<User> users = new ArrayList<>();
-        for (UUID uuid : userManager.searchAll(NodeMatcher.key(InheritanceNode.builder(group).build())).join().keySet()) {
-            User user = userManager.isLoaded(uuid) ? userManager.getUser(uuid) : userManager.loadUser(uuid).join();
-            if (user == null) throw new IllegalStateException("Could not load data of " + uuid);
-            users.add(user);
-        }
-        return users;
-    }
-
     public static boolean isFallenAngel(Player player) {
         return player.hasPermission("group.fallen");
     }
