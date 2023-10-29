@@ -6,8 +6,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import studio.resonos.grave.ResonosHeadsteal;
 
-import java.util.List;
-
 public class DataManager {
 
     // default value
