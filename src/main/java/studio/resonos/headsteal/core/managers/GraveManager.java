@@ -1,7 +1,9 @@
 package studio.resonos.headsteal.core.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -26,6 +28,7 @@ public class GraveManager {
         int offsety = y - 1;
         double offsetya = y - 1.5D;
         Location loc = new Location(p.getWorld(), x, y, z);
+        Bukkit.getWorld(p.getWorld().getName()).strikeLightningEffect(loc);
         p.getPlayer().getWorld().getBlockAt(new Location(p.getWorld(), x, offsety, z)).setType(Material.PODZOL);
         p.getPlayer().getWorld().getBlockAt(new Location(p.getWorld(), offsetx, y,z)).setType(Material.COBBLESTONE_WALL);
         Block wallter = p.getPlayer().getWorld().getBlockAt(new Location(p.getWorld(), offsetx, y,z));
@@ -46,6 +49,8 @@ public class GraveManager {
         stand.setHeadPose(new EulerAngle(Math.toRadians(291),Math.toRadians(306),Math.toRadians(0)));
         stand.setGravity(false);
         stand.setCollidable(false);
-
+        for (Player player: Bukkit.getOnlinePlayers()) {
+            player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_DEATH, 1.0f, 1.0f);
+        }
     }
 }

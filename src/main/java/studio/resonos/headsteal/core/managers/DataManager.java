@@ -26,8 +26,7 @@ public class DataManager {
         String path = "players." + p.getName();
 
         DeathManager.setLives(p, 0);
-        RankManager.clearPrefixes(p.getUniqueId());
-        RankManager.setDead(p.getUniqueId());
+        RankManager.deathAccordingPrefix(p);
         p.setGameMode(GameMode.SPECTATOR);
         configuration.set(path + ".dead", Boolean.TRUE);
     }
@@ -44,9 +43,8 @@ public class DataManager {
         FileConfiguration configuration = ResonosHeadsteal.getPlugin(ResonosHeadsteal.class).getPlayerconfig().getConfiguration();
         String path = "players." + p.getName();
 
-        RankManager.clearPrefixes(p.getUniqueId());
         DeathManager.setLives(p.getPlayer(), 3);
-        RankManager.setfirstlife(p.getUniqueId());
+        RankManager.deathAccordingPrefix(p.getPlayer());
 
         ((Player) p).setGameMode(GameMode.SURVIVAL);
         configuration.set(path + ".dead", Boolean.FALSE);
