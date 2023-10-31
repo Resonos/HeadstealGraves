@@ -44,7 +44,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
-        Bukkit.getWorld(e.getEntity().getWorld().getName()).playSound(e.getEntity().getLocation(), Sound.ENTITY_WITHER_HURT, 1.0f,1.0f);
+        Bukkit.getWorld(e.getEntity().getWorld().getName()).playSound(e.getEntity().getLocation(), Sound.ENTITY_WITHER_DEATH, 1.0f,1.0f);
         Bukkit.broadcastMessage(CC.translate("&c" + e.getEntity().getName() + " &chas died and lost a Soul!. They have: " + DeathManager.getLives(e.getEntity()) + " &cSouls left!"));
         DeathManager.removeLife(Objects.requireNonNull(e.getEntity().getPlayer()));
         e.getEntity().getPlayer().sendMessage(CC.translate("&cYou have lost your Soul!. You have " + DeathManager.getLives(e.getEntity().getPlayer())+ " &csouls left"));
@@ -104,7 +104,7 @@ public class PlayerListener implements Listener {
                 } else {
                     event.getPlayer().getInventory().getItemInHand().setAmount(event.getPlayer().getInventory().getItemInHand().getAmount()-1);
                 }
-                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 3000, 0));
+                event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 0));
                 CooldownUtil.setCooldown("soulfrag", event.getPlayer(), 600000);
                 event.getPlayer().playSound(event.getPlayer(), Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
             }
