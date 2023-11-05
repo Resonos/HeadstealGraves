@@ -37,5 +37,6 @@ studio\resonos\headsteal\core\utils\LocationUtil.class
 studio\resonos\headsteal\core\utils\AbstractConfigurationFile.class
 studio\resonos\headsteal\core\utils\Cooldown.class
 studio\resonos\headsteal\core\managers\DataManager.class
+studio\resonos\headsteal\core\commands\CoreCommand.class
 studio\resonos\headsteal\api\command\help\HelpNode.class
 studio\resonos\headsteal\core\commands\SetLivesCommand.class

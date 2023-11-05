@@ -16,6 +16,7 @@ public class RecipieManager {
         ItemStack item = new ItemStack(Material.SKELETON_SKULL);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.RED + "Soul Fragment");
+        meta.setCustomModelData(69420);
         item.setItemMeta(meta);
         NamespacedKey key = new NamespacedKey(ResonosHeadsteal.getPlugin(ResonosHeadsteal.class), "soul_fragment");
         ShapedRecipe recipe = new ShapedRecipe(key, item);
@@ -30,6 +31,7 @@ public class RecipieManager {
         ItemStack item = new ItemStack(Material.BEACON);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.GREEN + "Revive Beacon");
+        meta.setCustomModelData(42069);
         item.setItemMeta(meta);
         NamespacedKey key = new NamespacedKey(ResonosHeadsteal.getPlugin(ResonosHeadsteal.class), "revive_beacon");
         ShapedRecipe recipe = new ShapedRecipe(key, item);
